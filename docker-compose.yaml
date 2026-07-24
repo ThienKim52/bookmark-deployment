@@ -6,8 +6,8 @@ services:
     container_name: redis
 
   bookmark_service:
-    image: bookmark-service-test:latest
-    build: ../bookmark-service
+    image: kimthanthien/bookmark:dev
+    build: ../.
     restart: always
     container_name: bookmark-service
     depends_on:
