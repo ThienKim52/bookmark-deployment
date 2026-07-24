@@ -77,37 +77,21 @@ Navigate to this directory and bring up all containers in detached mode:
 docker compose up -d
 ```
 
-### 3. Verification
-Once the containers are running, you can test key endpoints:
-* **Frontend UI**: [http://localhost/](http://localhost/)
-* **Health Check Endpoint**: [http://localhost/api/bookmark_service/health-check](http://localhost/api/bookmark_service/health-check)
-* **Swagger API Documentation**: [http://localhost/api/bookmark_service/swagger/index.html](http://localhost/api/bookmark_service/swagger/index.html)
+### 3. Verification VM Deployment
+
+The application is deployed on a production VM with the IP address `103.75.183.118`. The routing configuration matches the local environment, mapped via the NGINX reverse proxy on port `80`.
+
+### VM Verification Endpoints
+
+You can verify the live deployment using the following endpoints:
+* **Frontend UI**: [http://103.75.183.118/](http://103.75.183.118/)
+* **Health Check Endpoint**: [http://103.75.183.118/api/bookmark_service/health-check](http://103.75.183.118/api/bookmark_service/health-check)
+* **Swagger API Documentation**: [http://103.75.183.118/api/bookmark_service/swagger/index.html](http://103.75.183.118/api/bookmark_service/swagger/index.html)
+* **Swagger Health Check Detail**: [http://103.75.183.118/api/bookmark_service/swagger/index.html#/health-check/get_health_check](http://103.75.183.118/api/bookmark_service/swagger/index.html#/health-check/get_health_check)
+
 
 ### 4. Stop Services
 To stop and remove containers and network settings:
 ```bash
 docker compose down
 ```
-
----
-
-## Scaling the Bookmark Service
-
-By default, `docker-compose.yaml` defines a static `container_name: bookmark-service` for convenience. To scale the application to run multiple instances behind the proxy (as shown in the architecture diagram):
-
-1. Edit [docker-compose.yaml](file:///d:/CODE/Golang/golang-dev/deployment/docker-compose.yaml) and comment out or remove the static container name:
-   ```yaml
-   bookmark_service:
-     image: kimthanthien/bookmark:dev
-     restart: always
-     # container_name: bookmark-service  <-- Comment out or remove this
-     depends_on:
-     - redis
-     env_file:
-     - ./bookmark-service/.env
-   ```
-2. Run Docker Compose with the `--scale` parameter:
-   ```bash
-   docker compose up -d --scale bookmark_service=2
-   ```
-   *Docker Compose will automatically create two separate containers, and Docker's internal DNS resolver will load-balance requests made to `http://bookmark-service:8080/` round-robin across both instances.*
