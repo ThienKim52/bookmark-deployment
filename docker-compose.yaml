@@ -6,7 +6,7 @@ services:
     container_name: redis
 
   bookmark_service:
-    image: kimthanthien/bookmark:v1.0.0
+    image: kimthanthien/bookmark:${IMAGE_TAG}
     restart: always
     container_name: bookmark-service
     depends_on:
