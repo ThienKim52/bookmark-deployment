@@ -6,13 +6,13 @@ services:
     container_name: redis
 
   bookmark_service:
-    image: kimthanthien/bookmark:${IMAGE_TAG}
+    image: kimthanthien/bookmark:${IMAGE_TAG:-latest}
     restart: always
     container_name: bookmark-service
     depends_on:
-    - redis
+      - redis
     env_file:
-    - ./bookmark-service/.env
+      - ./bookmark-service/.env
 
   portal:
     image: ebvn/bookmark-app-portal:dev
