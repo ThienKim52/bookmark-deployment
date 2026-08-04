@@ -16,11 +16,13 @@ jobs:
           # Update the local deployment files on the VM
           git pull origin main
           
+          # Clean up unused/dangling resources
+          docker system prune -f
+          
           # Pull latest Docker image tags specified in docker-compose.yaml
           docker compose pull
           
           # Recreate containers with the new image
           docker compose up -d
           
-          # Clean up unused/dangling resources
-          docker system prune -f
+          
