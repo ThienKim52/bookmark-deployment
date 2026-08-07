@@ -37,5 +37,6 @@ services:
     depends_on:
       - bookmark_service
       - portal
+      
   
    
