@@ -50,14 +50,6 @@ location /api/bookmark_service/ {
 
 ## Environment Configuration
 
-### Bookmark Service Configurations (`./bookmark-service/.env`)
-The service reads environment variables via `envconfig`. The default production-ready configurations are:
-
-```env
-ADDRESS=redis:6379              # Redis connection address (uses Docker DNS)
-BASE_PATH=/api/bookmark_service # Base path for generating Swagger documentation
-```
-
 Additional optional environment overrides:
 * `SERVICE_NAME`: Custom service identifier (defaults to `health-check-service`).
 * `INSTANCE_ID`: Custom unique instance tag. If left blank, a random UUID is generated on startup.
